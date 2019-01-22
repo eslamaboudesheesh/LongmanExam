@@ -27,7 +27,6 @@ $(document).ready(function() {
 		}
     });
     
-
 	/* 
 	   **** when click in div elementTargert to past the select answer from the span 
 	   **** first check the elementTargert if ccontain  any  text  can't add anothe text to this elementTargert
@@ -52,23 +51,6 @@ $(document).ready(function() {
 		}
     });
     
-
-	/*
-	 *** to restart  the exam again every thing back  to the first time 
-	 */
-
-	$('.restetAll').click(() => {
-		var resetEl = $("span.question");
-		resetEl.css({
-			"visibility": "visible"
-		}).removeClass('active incorrect');
-		$('.answer').empty();
-		answerCorrect = '';
-		answerInCorrect = ''
-		$(".result").removeAttr('disabled');
-    });
-    
-
 	/* 
 	 ** this function access  to   elementTarget fetch the text for element if correct hide the correct answer add in dev 
 	 ** and then add the audio and img warning  or not 
@@ -96,15 +78,37 @@ $(document).ready(function() {
 					elementTarget.empty();
 				}, 500)
 			}
+			var arrDisable = [];
+			$(".answer").map(function(index, elem) {
+				arrDisable.push($(elem).text());
+			})
+			if (!arrDisable.includes("")) {
+				$('.result').attr('disabled', true);
+			} else {
+				$(".result").removeAttr('disabled');
+			}
 		})
     }
     
+	/*
+	 *** to restart  the exam again every thing back  to the first time 
+	 */
 
+	$('.restetAll').click(() => {
+		var resetEl = $("span.question");
+		resetEl.css({
+			"visibility": "visible"
+		}).removeClass('active incorrect');
+		$('.answer').empty();
+		answerCorrect = '';
+		answerInCorrect = ''
+		$(".result").removeAttr('disabled');
+    });
+    
 	/*
 	 ** this event  show  all  result correct with imgcorrect if can't finshid the  exam by yourself 
 	 */
 
-     
 	$('.result').click(() => {
 		var arr = []
 		$("span.question").each(function(index, item) {
