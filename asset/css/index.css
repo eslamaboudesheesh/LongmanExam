@@ -13,7 +13,24 @@
   margin-bottom: 30px;
   cursor: pointer; }
 
-audio {
-  visibility: hidden; }
+.media-warning audio {
+  visibility: hidden;
+  position: absolute; }
+
+.media-warning {
+  position: relative;
+  padding-left: 20px; }
+
+.incorrect {
+  background-color: #0fa0c5 !important;
+  color: white !important; }
+
+.active {
+  background-color: #0fa0c5 !important;
+  color: white !important; }
+
+.question {
+  background-color: white;
+  color: black; }
 
 /*# sourceMappingURL=index.css.map */

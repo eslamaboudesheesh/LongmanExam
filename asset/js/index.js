@@ -1,108 +1,124 @@
 $(document).ready(function() {
-    /*$(".loader").fadeOut(2500);*/
-    $(".container").fadeIn(1000);
-    var answer;
-    var answer2;
+	/*$(".loader").fadeOut(2500);*/
+	$(".container").fadeIn(1000);
+	var answerCorrect;
+	var answerInCorrect;
     var flag = false;
-    $('span').click(function() {
-        if ($(this).data("answer") === "correct") {
-            answer = $(this).text();
-            flag = true
-            $(this).siblings().removeClass("incorrect");
+    
 
-        } else if ($(this).data("answer") === "incorrect") {
-            flag = false
-            answer2 = $(this).text();
+	/*
+	 ** check  if the span data-answer has correct or not correct if correct add active class 
+	 ** else if data-answer has incorrect  add class incorrect to target element and  remove from any another one 
+	 *** the  flag for test  if is correct or  no  to easy access to another function
+	 */
 
-            $(this).addClass("incorrect");
-        }
-        console.log(flag);
+
+	$('span').click(function() {
+		if ($(this).data("answer") === "correct") {
+			answerCorrect = $(this).text();
+			flag = true
+			$(this).addClass('active').siblings().removeClass("active");
+			$(this).siblings().removeClass("incorrect");
+		} else if ($(this).data("answer") === "incorrect") {
+			flag = false
+			answerInCorrect = $(this).text();
+			$(this).addClass("incorrect");
+			$(this).siblings().removeClass("incorrect active");
+		}
     });
-    $('.answer').click(function(e) {
+    
 
+	/* 
+	   **** when click in div elementTargert to past the select answer from the span 
+	   **** first check the elementTargert if ccontain  any  text  can't add anothe text to this elementTargert
+	   ***** if else access to the  flag if true the answer correct  else the answer is Incorrect
+	   *** and finally can call visibleElment() functin this function take the element target
 
-        var xxTarget = $(event.target)
-        var haveText = xxTarget.html()
-        if (haveText != '') {
-            console.log("haveText");
-        } else if (!flag) {
-            console.log(xxTarget.text(answer2));
-            xxTarget.text(answer2);
-            visiblElement(xxTarget);
-        } else if (flag) {
-            console.log(xxTarget.text(answer));
-            xxTarget.text(answer);
-            visiblElement(xxTarget);
-            answer = ''
-        }
+    */
+    
 
-
-
-
+	$('.answer').click(function(e) {
+		var elementTarget = $(event.target)
+		var haveText = elementTarget.html()
+		if (haveText != '') {
+			console.log("haveText");
+		} else if (!flag) {
+			elementTarget.text(answerInCorrect);
+			visiblElement(elementTarget);
+		} else if (flag) {
+			elementTarget.text(answerCorrect);
+			visiblElement(elementTarget);
+			answerCorrect = ''
+		}
     });
+    
 
-    $('.restetAll').click(() => {
+	/*
+	 *** to restart  the exam again every thing back  to the first time 
+	 */
 
-        var resetEl = $("span.question");
-        resetEl.css({
-            "visibility": "visible"
-        });
-        $('.answer').empty();
-        answer = '';
+	$('.restetAll').click(() => {
+		var resetEl = $("span.question");
+		resetEl.css({
+			"visibility": "visible"
+		}).removeClass('active incorrect');
+		$('.answer').empty();
+		answerCorrect = '';
+		answerInCorrect = ''
+		$(".result").removeAttr('disabled');
     });
+    
 
-    function visiblElement(xxTarget) {
-        xxTarget.removeClass("correctSound");
+	/* 
+	 ** this function access  to   elementTarget fetch the text for element if correct hide the correct answer add in dev 
+	 ** and then add the audio and img warning  or not 
+	 */
 
-        $("span.question").each(function(index) {
-            var incorrect = $(this).hasClass("incorrect");
-            var x = $(this).text();
-            var xx = $(this);
-            if (x === answer) {
-                xx.css({
-                    "visibility": "hidden"
-                });
-
-
-
-            }
-
-            if (incorrect) {
-
-
-                $(this).css({
-                    "visibility": "visible"
-                });
-                //  xxTarget.addClass('correctSound').append("<audio controls autoplay > <source src='correct.mp3' type='audio/mpeg'> </audio>");
-                setTimeout(() => {
-
-                    xxTarget.removeClass("correctSound");
-                    xxTarget.empty();
-
-
-                }, 500)
-            }
-
-
-        })
+	function visiblElement(elementTarget) {
+		elementTarget.removeClass("correctSound");
+		$("span.question").each(function(index) {
+			var incorrect = $(this).hasClass("incorrect");
+			var thisElementText = $(this).text();
+			var thisElement = $(this);
+			if (thisElementText === answerCorrect) {
+				thisElement.css({
+					"visibility": "hidden"
+				});
+				elementTarget.addClass('correctSound').append(" <span class='media-warning'><audio controls autoplay > <source src='yesCorrect.wav' type='audio/mpeg'> </audio> <img  class='animation-target' src='asset/img/correct.png'></span>");
+			}
+			if (incorrect) {
+				$(this).css({
+					"visibility": "visible"
+				});
+				elementTarget.addClass('correctSound').append(" <span class='media-warning'><audio controls autoplay > <source src='Incorrect.wav' type='audio/mpeg'> </audio> <img src='asset/img/crossMark.png' ></span>");
+				setTimeout(() => {
+					elementTarget.removeClass("correctSound");
+					elementTarget.empty();
+				}, 500)
+			}
+		})
     }
+    
 
-    $('.result').click(() => {
-        var arr = []
-        $("span.question").each(function(index, item) {
-            if ($(item).data("answer") === "correct") {
-                var resyltItem = $(item).html()
-                arr.push(resyltItem);
-            }
-        });
+	/*
+	 ** this event  show  all  result correct with imgcorrect if can't finshid the  exam by yourself 
+	 */
 
-        liList = $('.col-sm-12.answer');
-        liList.map((index, element) => {
-            $(element).text(arr[index]);
-        });
-
-
-
-
-    })
+     
+	$('.result').click(() => {
+		var arr = []
+		$("span.question").each(function(index, item) {
+			if ($(item).data("answer") === "correct") {
+				var resultItem = $(item).html()
+				arr.push(resultItem);
+				$(item).css({
+					"visibility": "hidden"
+				});
+			}
+		});
+		elementList = $('.col-sm-12.answer');
+		elementList.map((index, element) => {
+			$(element).text(arr[index]).append("<span class='media-warning'> <img src='asset/img/correct.png' class='animation-target'></span>")
+		});
+	})
 });
