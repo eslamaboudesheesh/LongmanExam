@@ -3,16 +3,14 @@ $(document).ready(function() {
 	$(".page-content").fadeIn(2000);
 	var answerCorrect;
 	var answerInCorrect;
-    var flag = false;
-    
+	var flag = false;
 
 	/*
 	 ** check  if the span data-answer has correct or not correct if correct add active class 
 	 ** else if data-answer has incorrect  add class incorrect to target element and  remove from any another one 
 	 *** the  flag for test  if is correct or  no  to easy access to another function
 	 */
-
-
+	
 	$('span.question').click(function() {
 		if ($(this).data("answer") === "correct") {
 			answerCorrect = $(this).text();
@@ -25,8 +23,8 @@ $(document).ready(function() {
 			$(this).addClass("incorrect");
 			$(this).siblings().removeClass("incorrect active");
 		}
-    });
-    
+	});
+
 	/* 
 	   **** when click in div elementTargert to past the select answer from the span 
 	   **** first check the elementTargert if ccontain  any  text  can't add anothe text to this elementTargert
@@ -34,7 +32,6 @@ $(document).ready(function() {
 	   *** and finally can call visibleElment() functin this function take the element target
 
     */
-    
 
 	$('.answer').click(function(e) {
 		var elementTarget = $(event.target)
@@ -49,8 +46,8 @@ $(document).ready(function() {
 			visiblElement(elementTarget);
 			answerCorrect = ''
 		}
-    });
-    
+	});
+
 	/* 
 	 ** this function access  to   elementTarget fetch the text for element if correct hide the correct answer add in dev 
 	 ** and then add the audio and img warning  or not 
@@ -74,15 +71,14 @@ $(document).ready(function() {
 				});
 				elementTarget.addClass('correctSound').append(" <span class='media-warning'><audio controls autoplay > <source src='Incorrect.wav' type='audio/mpeg'> </audio> <img src='asset/img/crossMark.png' ></span>");
 				setTimeout(() => {
+					$(".result").removeAttr('disabled');
 					elementTarget.removeClass("correctSound");
 					elementTarget.empty();
 				}, 500)
 			}
 			var arrDisable = [];
 			$(".answer").map(function(index, elem) {
-				if (flag){
 				arrDisable.push($(elem).text());
-				}
 			})
 			console.log(arrDisable);
 			if (!arrDisable.includes("")) {
@@ -91,8 +87,8 @@ $(document).ready(function() {
 				$(".result").removeAttr('disabled');
 			}
 		})
-    }
-    
+	}
+
 	/*
 	 *** to restart  the exam again every thing back  to the first time 
 	 */
@@ -106,8 +102,8 @@ $(document).ready(function() {
 		answerCorrect = '';
 		answerInCorrect = ''
 		$(".result").removeAttr('disabled');
-    });
-    
+	});
+
 	/*
 	 ** this event  show  all  result correct with imgcorrect if can't finshid the  exam by yourself 
 	 */
