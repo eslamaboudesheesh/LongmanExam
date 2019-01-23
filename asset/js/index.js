@@ -10,7 +10,7 @@ $(document).ready(function() {
 	 ** else if data-answer has incorrect  add class incorrect to target element and  remove from any another one 
 	 *** the  flag for test  if is correct or  no  to easy access to another function
 	 */
-	
+
 	$('span.question').click(function() {
 		if ($(this).data("answer") === "correct") {
 			answerCorrect = $(this).text();
@@ -72,6 +72,7 @@ $(document).ready(function() {
 				elementTarget.addClass('correctSound').append(" <span class='media-warning'><audio controls autoplay > <source src='Incorrect.wav' type='audio/mpeg'> </audio> <img src='asset/img/crossMark.png' ></span>");
 				setTimeout(() => {
 					$(".result").removeAttr('disabled');
+					console.log("deleet")
 					elementTarget.removeClass("correctSound");
 					elementTarget.empty();
 				}, 500)
