@@ -59,6 +59,7 @@ $(document).ready(function() {
 			var incorrect = $(this).hasClass("incorrect");
 			var thisElementText = $(this).text();
 			var thisElement = $(this);
+			var buttonDisable = $(".answer");
 			if (thisElementText === answerCorrect) {
 				thisElement.css({
 					"visibility": "hidden"
@@ -71,8 +72,7 @@ $(document).ready(function() {
 				});
 				elementTarget.addClass('correctSound').append(" <span class='media-warning'><audio controls autoplay > <source src='Incorrect.wav' type='audio/mpeg'> </audio> <img src='asset/img/crossMark.png' ></span>");
 				setTimeout(() => {
-					$(".result").removeAttr('disabled');
-					console.log("deleet")
+					buttonDisable.removeAttr('disabled');
 					elementTarget.removeClass("correctSound");
 					elementTarget.empty();
 				}, 500)
