@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	/*$(".loader").fadeOut(2500);*/
-	$(".container").fadeIn(1000);
+	$(".loader").fadeOut(1000);
+	$(".page-content").fadeIn(2000);
 	var answerCorrect;
 	var answerInCorrect;
     var flag = false;
@@ -13,7 +13,7 @@ $(document).ready(function() {
 	 */
 
 
-	$('span').click(function() {
+	$('span.question').click(function() {
 		if ($(this).data("answer") === "correct") {
 			answerCorrect = $(this).text();
 			flag = true
@@ -80,8 +80,11 @@ $(document).ready(function() {
 			}
 			var arrDisable = [];
 			$(".answer").map(function(index, elem) {
+				if (flag){
 				arrDisable.push($(elem).text());
+				}
 			})
+			console.log(arrDisable);
 			if (!arrDisable.includes("")) {
 				$('.result').attr('disabled', true);
 			} else {
@@ -120,7 +123,7 @@ $(document).ready(function() {
 				});
 			}
 		});
-		elementList = $('.col-sm-12.answer');
+		elementList = $('.answer');
 		elementList.map((index, element) => {
 			$(element).text(arr[index]).append("<span class='media-warning'> <img src='asset/img/correct.png' class='animation-target'></span>")
 		});
