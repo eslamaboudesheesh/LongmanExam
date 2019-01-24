@@ -59,7 +59,7 @@ $(document).ready(function() {
 			var incorrect = $(this).hasClass("incorrect");
 			var thisElementText = $(this).text();
 			var thisElement = $(this);
-			var buttonDisable = $(".answer");
+			var buttonDisable = $(".result");
 			if (thisElementText === answerCorrect) {
 				thisElement.css({
 					"visibility": "hidden"
@@ -81,7 +81,6 @@ $(document).ready(function() {
 			$(".answer").map(function(index, elem) {
 				arrDisable.push($(elem).text());
 			})
-			console.log(arrDisable);
 			if (!arrDisable.includes("")) {
 				$('.result').attr('disabled', true);
 			} else {
@@ -125,4 +124,9 @@ $(document).ready(function() {
 			$(element).text(arr[index]).append("<span class='media-warning'> <img src='asset/img/correct.png' class='animation-target'></span>")
 		});
 	})
+
+	$(".modal-wide").on("show.bs.modal", function() {
+		var height = $(window).height() - 100;
+		$(this).find(".modal-body").css("max-height", height);
+	  });
 });

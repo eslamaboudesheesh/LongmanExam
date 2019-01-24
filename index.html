@@ -2,9 +2,8 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta content="width=device-width,initial-scale=1.0,user-scalable=no" name="viewport">
 	<title>LongmanExam</title>
-	<link href="asset/plugin/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 	<link href="asset/plugin/css/animation.css" rel="stylesheet">
 	<link href="asset/css/index.css" rel="stylesheet">
 </head>
@@ -15,7 +14,7 @@
 			<section class="main--header col-xs-12 noPadding">
 				<h1 class="col-xs-9">What’s in the basket? Choose and write.</h1>
 				<div class="main--header-groupbutton col-xs-3">
-					<button class="btn btnImg"></button> <button class="btn btnInfo"></button>
+					<button class="btn btnImg" data-target="#modalImg" data-toggle="modal"></button> <button class="btn btnInfo" data-target="#modalInfo" data-toggle="modal"></button>
 				</div>
 			</section>
 			<section class="main--body col-xs-12">
@@ -54,12 +53,36 @@
 				</div>
 			</section>
 		</section>
-	</section>
+	</section><!-- Modal -->
+	<div class="modal modal-wide fade" id="modalImg">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<button aria-hidden="true" class="close" data-dismiss="modal" type="button"><img alt="closeModel" src="asset/img/close.png"></button>
+				<div class="modal-body"><img src="asset/img/dummy.jpg"></div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<div class="modal modal-wide fade" id="modalInfo">
+		<div class="modal-dialog">
+			<div class=" model-contentTwo modal-content">
+				<button aria-hidden="true" class="close" data-dismiss="modal" type="button"><img alt="closeModel" src="asset/img/close.png"></button>
+				<div class="modal-body">
+					<p>Help content goes here.</p>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	<script src="asset/plugin/js/jquery.min.js">
 	</script> 
 	<script src="asset/plugin/js/bootstrap.min.js">
 	</script> 
+	<script src="asset/js/autoViewPort.js">
+	</script> 
 	<script src="asset/js/index.js">
+	</script> 
+	<script>
+	         AutoViewport.setDimensions(yourNeededWidth, yourNeededHeight);
+
 	</script>
 </body>
 </html>
